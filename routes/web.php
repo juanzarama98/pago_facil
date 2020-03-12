@@ -1,5 +1,18 @@
 <?php
 
+use App\Producto;
+
+ /*   echo "<pre>";            
+    var_dump($paises);
+    echo "</pre>";
+
+    //Recorrer el arreglo países
+    foreach($paises as $pais => $informacion ){
+        echo"<h1> $pais</h1>";
+        echo $informacion["Capital"]. "<br/>";
+        echo"<hr />";
+    }*/
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +30,34 @@ Route::get('/', function () {
 
 /*ruta para arreglos 
 multidimensionales*/
+
+Route::get("pruebaprod",function(){
+    //Insertar Producto
+    $p->nombre="Bicicleta";
+    $p->valor_unitario= 450.000;
+    //guardar en BD
+    $p->save();
+} );
+
+Route::get('nuevoproducto',function(){
+//MOSTRAR EL FORMULARI0
+return view('productos.create');
+
+} );
+
+Route::post('guardarproducto', function(){
+//recibir los datos que vienen desde el formulario
+    $p=new Producto();
+    $p->nombre=$_POST["nombre"];
+    $p->valor_unitario=$_POST["valor"];
+    //guardar en BD
+    $p->save();
+    echo "Producto agregado correctamente al sistema";
+
+/*echo"<pre>";
+var_dump($_POST);
+echo"</pre>";*/
+});
 
 route::get('arreglom', function(){ 
     $paises = [ "Colombia"=> [
@@ -41,18 +82,8 @@ route::get('arreglom', function(){
                 ];
                 return  view('paises')
                 ->with('paises' , $paises);
-});
-/*
-    echo "<pre>";            
-    var_dump($paises);
-    echo "</pre>";
-*/
-    //Recorrer el arreglo países
-/*    foreach($paises as $pais => $informacion ){
-        echo"<h1> $pais</h1>";
-        echo $informacion["Capital"]. "<br/>";
-        echo"<hr />";
-    }*/
+} );
+
 
 
 
